@@ -1,6 +1,6 @@
 # Booker
 
-Booker adalah aplikasi web untuk meminjam, mendonasikan, dan membeli buku. Aplikasi web ini dilengkapi dengan sistem poin yang bisa didapatkan ketika meminjam, melakukan review, serta mendonasikan buku. Poin tersebut dapat ditukarkan dengan buku gratis. Dengan sistem ini, diharapkan pengguna semakin termotivasi untuk membaca buku, dan membantu meningkatkan literasi masyarakat Indonesia.
+Booker adalah aplikasi _mobile_ untuk meminjam, mendonasikan, dan membeli buku. Aplikasi web ini dilengkapi dengan sistem poin yang bisa didapatkan ketika meminjam, melakukan review, serta mendonasikan buku. Poin tersebut dapat ditukarkan dengan buku gratis. Dengan sistem ini, diharapkan pengguna semakin termotivasi untuk membaca buku, dan membantu meningkatkan literasi masyarakat Indonesia.
 
 ## Nama Anggota Kelompok
 
