@@ -45,3 +45,4 @@ Pengguna yang sudah pernah meminjam/membeli buku, dapat memberikan ulasan untuk 
 7. Laman admin
 
 Hanya pengguna dengan role Admin dapat mengakses laman ini. Pada laman ini, terdapat fitur untuk cek stok buku untuk peminjaman dan data penjualan buku.
+ 
