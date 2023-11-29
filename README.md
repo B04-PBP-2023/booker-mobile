@@ -1,6 +1,8 @@
 # Booker
 
-Booker adalah aplikasi _mobile_ untuk meminjam, mendonasikan, dan membeli buku. Aplikasi web ini dilengkapi dengan sistem poin yang bisa didapatkan ketika meminjam, melakukan review, serta mendonasikan buku. Poin tersebut dapat ditukarkan dengan buku gratis. Dengan sistem ini, diharapkan pengguna semakin termotivasi untuk membaca buku, dan membantu meningkatkan literasi masyarakat Indonesia.
+[Berita acara](https://1drv.ms/x/s!Ar5Hb9gKjcO7hcdg0luy9o4mG9s4gg?e=d1LLew)
+
+Booker adalah aplikasi _mobile_ untuk meminjam, mendonasikan, dan membeli buku. Aplikasi _mobile_ ini dilengkapi dengan sistem poin yang bisa didapatkan ketika meminjam, melakukan review, serta mendonasikan buku. Poin tersebut dapat ditukarkan dengan buku gratis. Dengan sistem ini, diharapkan pengguna semakin termotivasi untuk membaca buku, dan membantu meningkatkan literasi masyarakat Indonesia.
 
 ## Nama Anggota Kelompok
 
@@ -20,7 +22,7 @@ Booker adalah aplikasi _mobile_ untuk meminjam, mendonasikan, dan membeli buku. 
 
 1. Front Page
 
-    Tampilan awal web, di mana pengguna dapat melihat koleksi buku-buku yang tersedia, dan mencari buku.
+    Tampilan awal aplikasi, di mana pengguna dapat melihat koleksi buku-buku yang tersedia, dan mencari buku.
 
 2. Pinjam buku
 
@@ -78,7 +80,7 @@ Booker adalah aplikasi _mobile_ untuk meminjam, mendonasikan, dan membeli buku. 
 
 ## Peran Pengguna Aplikasi
 
-Terdapat tiga (3) role di aplikasi web ini, yakni Admin, User, dan Guest.
+Terdapat tiga (3) role di aplikasi _mobile_ ini, yakni Admin, User, dan Guest.
 
 - Admin
 
@@ -93,3 +95,4 @@ Terdapat tiga (3) role di aplikasi web ini, yakni Admin, User, dan Guest.
     Guest adalah role default jika pengguna tidak login. Guest dapat mengakses laman front page, tetapi tidak dapat mengakses bookshelf, dan tidak dapat melakukan peminjaman maupun pembelian buku.
 
 ## Alur Pengintegrasian dengan _Web Service_
+-
