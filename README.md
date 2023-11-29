@@ -95,4 +95,18 @@ Terdapat tiga (3) role di aplikasi _mobile_ ini, yakni Admin, User, dan Guest.
     Guest adalah role default jika pengguna tidak login. Guest dapat mengakses laman front page, tetapi tidak dapat mengakses bookshelf, dan tidak dapat melakukan peminjaman maupun pembelian buku.
 
 ## Alur Pengintegrasian dengan _Web Service_
--
+
+Secara garis besar, alur pengintegrasian dengan _Web Service_ dibagi menjadi tiga:
+  
+1. Integrasi Autentikasi Antara Aplikasi _mobile_ dengan Aplikasi _Web_
+   1. _Setup_ pada Aplikasi _Web_ Django
+   2. _Setup_ pada Aplikasi _mobile_
+
+2. Menerapkan _Fetch Data_ dari Layanan _Web_ untuk Ditampilkan pada Aplikasi _mobile_
+   1. Menambahkan dependensi `http`
+   2. Melakukan _Fetch Data_ dari Layanan _Web_
+       
+3. Integrasi _Form Flutter_ dengan Layanan _Web_
+
+   1. Terdapat sebuah fungsi yang akan mengirim data _form_ pada aplikasi _flutter_ dalam bentuk `json` menuju Aplikasi _Web_
+   2. Terdapat sebuah fungsi dalam aplikasi Django yang menerima data _form_ dalam bentuk `json` lalu diproses sesuai dengan yang dituju
