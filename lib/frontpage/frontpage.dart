@@ -9,6 +9,8 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../main.dart';
+
 class Frontpage extends StatefulWidget {
   const Frontpage({super.key});
 
@@ -17,8 +19,16 @@ class Frontpage extends StatefulWidget {
 }
 
 class _FrontpageState extends State<Frontpage> {
-  Future<List<Book>> fetchBook(CookieRequest request) async {
-    var response = await request.get('http://10.0.2.2:8000/api/books/');
+  Future<List<Book>> fetchBook(String query) async {
+    final request = Provider.of<CookieRequest>(context, listen: false);
+
+    var response = [];
+    if (query == '') {
+      response = await request.get('http://10.0.2.2:8000/api/books/');
+    } else {
+      response = await request.get('http://10.0.2.2:8000/api/books/search?q=$query');
+    }
+
     List<Book> listBook = [];
     for (var book in response) {
       if (book != null) {
@@ -30,34 +40,46 @@ class _FrontpageState extends State<Frontpage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final request = context.watch<CookieRequest>();
-    return Scaffold(
-      appBar: const FrontpageAppBar(),
-      drawer: const LeftDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: FutureBuilder(
-          future: fetchBook(request),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.data == null) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              return GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
-                shrinkWrap: true,
-                childAspectRatio: 0.65,
-                children: List.generate(snapshot.data!.length, (index) {
-                  return FrontpageCard(
-                    index: index,
-                    snapshot: snapshot,
-                  );
-                }),
-              );
-            }
-          },
+    return ChangeNotifierProvider<BookDataProvider>(
+      create: (_) {
+        BookDataProvider bdp = BookDataProvider();
+        bdp.updateList(fetchBook(''));
+        return bdp;
+      },
+      child: Scaffold(
+        appBar: FrontpageAppBar(
+          fetchBook: fetchBook,
+        ),
+        drawer: const LeftDrawer(),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Consumer<BookDataProvider>(
+            builder: (context, provider, child) {
+              if (provider.listBook == []) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                return GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 8.0,
+                  mainAxisSpacing: 8.0,
+                  shrinkWrap: true,
+                  childAspectRatio: 0.65,
+                  children: List.generate(provider.listBook.length, (index) {
+                    return FrontpageCard(
+                      index: index,
+                      snapshot: provider,
+                    );
+                  }),
+                );
+              }
+            },
+          ),
         ),
       ),
     );
