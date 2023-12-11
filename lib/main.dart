@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(create: (_) {
-          CookieRequest request = CookieRequest(baseUrl: 'http://10.0.2.2:8000');
+          CookieRequest request = CookieRequest(
+              baseUrl: true ? 'https://booker-b04-tk.pbp.cs.ui.ac.id' : 'http://10.0.2.2:8000');
           return request;
         }),
         ChangeNotifierProvider<IsSearchProvider>(create: (_) => IsSearchProvider()),

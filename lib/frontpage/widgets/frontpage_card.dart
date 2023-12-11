@@ -1,8 +1,11 @@
+import 'package:booker/beli_buku/beli_buku.dart';
 import 'package:booker/frontpage/frontpage.dart';
+import 'package:booker/login/login.dart';
 import 'package:flutter/material.dart';
-
-import '../../_models/book.dart';
+import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
+import 'package:provider/provider.dart';
 import '../../main.dart';
+import '../../pinjam_buku/pinjam_buku.dart';
 
 class FrontpageCard extends StatelessWidget {
   const FrontpageCard({
@@ -16,6 +19,7 @@ class FrontpageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -27,7 +31,7 @@ class FrontpageCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "${snapshot.listBook[index].fields.name}",
+                  snapshot.listBook[index].fields.name,
                   style: const TextStyle(
                     fontSize: 16.5,
                     fontWeight: FontWeight.w500,
@@ -40,7 +44,7 @@ class FrontpageCard extends StatelessWidget {
                   "${snapshot.listBook[index].fields.author}, ${snapshot.listBook[index].fields.year}",
                 ),
                 Text(
-                  "${snapshot.listBook[index].fields.genre}",
+                  snapshot.listBook[index].fields.genre,
                 ),
               ],
             ),
@@ -56,7 +60,7 @@ class FrontpageCard extends StatelessWidget {
                         size: 19,
                         color: Colors.green,
                       ),
-                      Text("${snapshot.listBook[index].fields.price}",
+                      Text("${snapshot.listBook[index].fields.price ?? '-'}",
                           style: const TextStyle(
                             fontSize: 16.5,
                             fontWeight: FontWeight.w500,
@@ -81,8 +85,20 @@ class FrontpageCard extends StatelessWidget {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       surfaceTintColor: Colors.blue,
+                      side: const BorderSide(color: Colors.blueAccent),
                     ),
-                    onPressed: () {},
+                    onPressed: snapshot.listBook[index].fields.forSale
+                        ? request.loggedIn
+                            ? () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => BeliBuku(data: snapshot, index: index));
+                              }
+                            : () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => const LoginPage()));
+                              }
+                        : null,
                     child: const Text("Beli"),
                   ),
                 ),
@@ -91,8 +107,18 @@ class FrontpageCard extends StatelessWidget {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       surfaceTintColor: Colors.blue,
+                      side: const BorderSide(color: Colors.indigoAccent),
                     ),
-                    onPressed: () {},
+                    onPressed: request.loggedIn
+                        ? () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => PinjamBuku(data: snapshot, index: index));
+                          }
+                        : () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => const LoginPage()));
+                          },
                     child: const Text("Pinjam"),
                   ),
                 ),

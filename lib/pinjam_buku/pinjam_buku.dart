@@ -2,24 +2,24 @@ import 'package:booker/frontpage/widgets/frontpage_card.dart';
 import 'package:booker/main.dart';
 import 'package:flutter/material.dart';
 
-class BeliBuku extends StatefulWidget {
-  const BeliBuku({super.key, required this.data, required this.index});
+class PinjamBuku extends StatefulWidget {
+  const PinjamBuku({super.key, required this.data, required this.index});
 
   final BookDataProvider data;
   final int index;
 
   @override
-  State<BeliBuku> createState() => _BeliBukuState();
+  State<PinjamBuku> createState() => _PinjamBukuState();
 }
 
-class _BeliBukuState extends State<BeliBuku> {
+class _PinjamBukuState extends State<PinjamBuku> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Center(child: Text("Pembelian")),
+      title: const Center(child: Text("Peminjaman")),
       content: SingleChildScrollView(
         child: SizedBox(
-          height: 300,
+          height: 270,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -44,24 +44,6 @@ class _BeliBukuState extends State<BeliBuku> {
               ),
               Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.attach_money,
-                          size: 22,
-                          color: Colors.green,
-                        ),
-                        Text("${widget.data.listBook[widget.index].fields.price ?? '-'}",
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ))
-                      ],
-                    ),
-                  ),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -69,17 +51,7 @@ class _BeliBukuState extends State<BeliBuku> {
                         side: const BorderSide(color: Colors.blueAccent),
                       ),
                       onPressed: () {},
-                      child: const Text("Beli"),
-                    ),
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        side: const BorderSide(color: Colors.indigoAccent),
-                      ),
-                      onPressed: () {},
-                      child: const Text("Tukar dengan 100 poin"),
+                      child: const Text("Pinjam"),
                     ),
                   ),
                 ],

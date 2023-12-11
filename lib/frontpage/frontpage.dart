@@ -24,9 +24,9 @@ class _FrontpageState extends State<Frontpage> {
 
     var response = [];
     if (query == '') {
-      response = await request.get('http://10.0.2.2:8000/api/books/');
+      response = await request.get('/api/books/');
     } else {
-      response = await request.get('http://10.0.2.2:8000/api/books/search?q=$query');
+      response = await request.get('/api/books/search?q=$query');
     }
 
     List<Book> listBook = [];

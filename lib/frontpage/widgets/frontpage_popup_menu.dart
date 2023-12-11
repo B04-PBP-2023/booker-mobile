@@ -23,7 +23,7 @@ class _FrontpagePopupMenuState extends State<FrontpagePopupMenu> {
 
   void fetchUserData() async {
     final request = Provider.of<CookieRequest>(context, listen: false);
-    var response = await request.get('http://10.0.2.2:8000/authentication/user-data');
+    var response = await request.get('/authentication/user-data');
     setState(() {
       username = response['username'];
       points = response['points'].toString();
@@ -79,8 +79,7 @@ class _FrontpagePopupMenuState extends State<FrontpagePopupMenu> {
                     disabledForegroundColor: Colors.black,
                   ),
                   onPressed: () async {
-                    final response =
-                        await request.logout("http://10.0.2.2:8000/authentication/logout-mobile/");
+                    final response = await request.logout("/authentication/logout-mobile/");
                     String message = response["message"];
                     if (response['status']) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
