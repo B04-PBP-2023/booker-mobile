@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
+import 'package:booker/reviewpage/reviewpage.dart';
+import 'package:provider/provider.dart';
+import 'package:booker/login/login.dart';
 
 import '../../_models/book.dart';
 
@@ -14,6 +18,7 @@ class FrontpageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -92,6 +97,25 @@ class FrontpageCard extends StatelessWidget {
                     ),
                     onPressed: () {},
                     child: const Text("Pinjam"),
+                  ),
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      surfaceTintColor: Colors.blue,
+                    ),
+                    onPressed: request.loggedIn
+                        ? () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => ReviewPage(idReview: index + 1));
+                    }
+                        : () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => const LoginPage()));
+                    },
+                    child: const Text("Review"),
                   ),
                 ),
               ],

@@ -18,7 +18,7 @@ class Frontpage extends StatefulWidget {
 
 class _FrontpageState extends State<Frontpage> {
   Future<List<Book>> fetchBook(CookieRequest request) async {
-    var response = await request.get('http://10.0.2.2:8000/api/books/');
+    var response = await request.get('http://10.0.2.2:8000/api/books');
     List<Book> listBook = [];
     for (var book in response) {
       if (book != null) {
@@ -48,7 +48,7 @@ class _FrontpageState extends State<Frontpage> {
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,
                 shrinkWrap: true,
-                childAspectRatio: 0.65,
+                childAspectRatio: 0.55,
                 children: List.generate(snapshot.data!.length, (index) {
                   return FrontpageCard(
                     index: index,
