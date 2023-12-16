@@ -1,7 +1,7 @@
 import 'package:booker/_global_widgets/drawer.dart';
-import 'package:booker/_models/book.dart';
-import 'package:booker/frontpage/widgets/frontpage_appbar.dart';
-import 'package:booker/frontpage/widgets/frontpage_card.dart';
+import 'package:booker/_models/borrowed_book.dart';
+import 'package:booker/bookshelf/widget/bookshelf_appbar.dart';
+import 'package:booker/bookshelf/widget/bookshelf_card.dart';
 import 'package:booker/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
@@ -9,20 +9,21 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class Frontpage extends StatefulWidget {
-  const Frontpage({super.key});
+class Bookshelf extends StatefulWidget {
+  const Bookshelf({super.key});
 
   @override
-  State<Frontpage> createState() => _FrontpageState();
+  State<Bookshelf> createState() => _BookshelfState();
 }
 
-class _FrontpageState extends State<Frontpage> {
-  Future<List<Book>> fetchBook(CookieRequest request) async {
-    var response = await request.get('http://localhost:8000/api/books/');
-    List<Book> listBook = [];
+class _BookshelfState extends State<Bookshelf> {
+  Future<List<BorrowedBook>> fetchBook(CookieRequest request) async {
+    var response = await request.get('http://localhost:8000/bookshelf/get-bookshelf/?borrow=1');
+    List<BorrowedBook> listBook = [];
     for (var book in response) {
       if (book != null) {
-        listBook.add(Book.fromJson(book));
+        print(book);
+        listBook.add(BorrowedBook.fromJson(book));
       }
     }
 
@@ -33,7 +34,7 @@ class _FrontpageState extends State<Frontpage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
-      appBar: const FrontpageAppBar(),
+      appBar: const BookshelfAppBar(),
       drawer: const LeftDrawer(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -50,7 +51,7 @@ class _FrontpageState extends State<Frontpage> {
                 shrinkWrap: true,
                 childAspectRatio: 0.65,
                 children: List.generate(snapshot.data!.length, (index) {
-                  return FrontpageCard(
+                  return BookshelfCard(
                     index: index,
                     snapshot: snapshot,
                   );

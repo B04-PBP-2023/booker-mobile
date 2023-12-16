@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:booker/frontpage/frontpage.dart';
+import 'package:booker/bookshelf/bookshelf.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -43,6 +44,18 @@ class LeftDrawer extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const Frontpage(),
+                  ));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.home_outlined),
+            title: const Text('Bookshelf'),
+            // Bagian redirection ke MyHomePage
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Bookshelf(),
                   ));
             },
           ),

@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 // for localhost, use http://10.0.2.2/
                 final response =
-                    await request.login("http://10.0.2.2:8000/authentication/login-mobile/", {
+                    await request.login("http://localhost:8000/authentication/login-mobile/", {
                   'username': username,
                   'password': password,
                 });

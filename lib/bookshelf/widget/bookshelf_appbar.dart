@@ -1,5 +1,5 @@
-import 'package:booker/frontpage/frontpage.dart';
-import 'package:booker/frontpage/widgets/search_bar.dart';
+import 'package:booker/bookshelf/bookshelf.dart';
+import 'package:booker/bookshelf/widget/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
@@ -17,17 +17,17 @@ class IsSearchProvider extends ChangeNotifier {
   }
 }
 
-class FrontpageAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const FrontpageAppBar({super.key});
+class BookshelfAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const BookshelfAppBar({super.key});
 
   @override
-  State<FrontpageAppBar> createState() => _FrontpageAppBarState();
+  State<BookshelfAppBar> createState() => _BookshelfAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-class _FrontpageAppBarState extends State<FrontpageAppBar> {
+class _BookshelfAppBarState extends State<BookshelfAppBar> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -76,7 +76,7 @@ class _FrontpageAppBarState extends State<FrontpageAppBar> {
                               ));
                               Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute(builder: (context) => const Frontpage()),
+                                MaterialPageRoute(builder: (context) => const Bookshelf()),
                               );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -103,7 +103,7 @@ class _FrontpageAppBarState extends State<FrontpageAppBar> {
               return AppBar(
                 automaticallyImplyLeading: false,
                 actions: const [
-                  Expanded(child: FrontpageSearchBar()),
+                  Expanded(child: BookshelfSearchBar()),
                 ],
               );
             }

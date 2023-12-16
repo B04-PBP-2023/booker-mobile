@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider(
       create: (_) {
-        CookieRequest request = CookieRequest(baseUrl: 'http://10.0.2.2:8000');
+        CookieRequest request = CookieRequest(baseUrl: 'http://localhost:8000');
         return request;
       },
       child: MaterialApp(
