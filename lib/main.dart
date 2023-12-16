@@ -12,7 +12,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  // This widget is the root of the app.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -23,6 +23,8 @@ class MyApp extends StatelessWidget {
           return request;
         }),
         ChangeNotifierProvider<IsSearchProvider>(create: (_) => IsSearchProvider()),
+        ChangeNotifierProvider<IsSearchBookshelfProvider>(
+            create: (_) => IsSearchBookshelfProvider()),
         ChangeNotifierProvider<BookDataProvider>(create: (_) => BookDataProvider()),
         ChangeNotifierProvider<UserDataProvider>(create: (_) => UserDataProvider()),
       ],
@@ -40,11 +42,41 @@ class MyApp extends StatelessWidget {
 
 class BookDataProvider extends ChangeNotifier {
   List<Book> _listBook = [];
+  bool _loading = false;
 
   List<Book> get listBook => _listBook;
+  bool get loading => _loading;
 
   Future<void> updateList(Future<List<Book>> list) async {
     _listBook = await list;
+    _loading = false;
+    notifyListeners();
+  }
+
+  void setLoading(bool b) {
+    _loading = b;
+    notifyListeners();
+  }
+}
+
+class IsSearchProvider extends ChangeNotifier {
+  bool _isSearch = false;
+
+  bool get isSearch => _isSearch;
+
+  void toggleSearch() {
+    _isSearch = !_isSearch;
+    notifyListeners();
+  }
+}
+
+class IsSearchBookshelfProvider extends ChangeNotifier {
+  bool _isSearch = false;
+
+  bool get isSearch => _isSearch;
+
+  void toggleSearch() {
+    _isSearch = !_isSearch;
     notifyListeners();
   }
 }

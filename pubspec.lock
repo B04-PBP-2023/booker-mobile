@@ -188,10 +188,10 @@ packages:
     dependency: "direct main"
     description:
       name: pbp_django_auth_extended
-      sha256: "9b4f31863739efe889f5171cdb3204709906ffefee789650460c6d20c4769189"
+      sha256: "16beebcea9260fc83856c8041f455633afb6a858e79841339092e5fa6d692e51"
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.2"
+    version: "0.5.3"
   platform:
     dependency: transitive
     description:

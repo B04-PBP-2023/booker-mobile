@@ -5,6 +5,7 @@ import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
 
 import '../../login/login.dart';
+import '../../main.dart';
 import 'frontpage_popup_menu.dart';
 
 class FrontpageAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -81,16 +82,5 @@ class _FrontpageAppBarState extends State<FrontpageAppBar> {
         }
       },
     );
-  }
-}
-
-class IsSearchProvider extends ChangeNotifier {
-  bool _isSearch = false;
-
-  bool get isSearch => _isSearch;
-
-  void toggleSearch() {
-    _isSearch = !_isSearch;
-    notifyListeners();
   }
 }

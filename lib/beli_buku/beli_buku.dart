@@ -22,6 +22,7 @@ class _BeliBukuState extends State<BeliBuku> {
           height: 300,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
