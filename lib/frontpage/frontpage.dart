@@ -48,7 +48,7 @@ class _FrontpageState extends State<Frontpage> {
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,
                 shrinkWrap: true,
-                childAspectRatio: 0.65,
+                childAspectRatio: 0.55,
                 children: List.generate(snapshot.data!.length, (index) {
                   return FrontpageCard(
                     index: index,

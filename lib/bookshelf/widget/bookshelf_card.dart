@@ -84,16 +84,16 @@ class BookshelfCard extends StatelessWidget {
                     child: const Text("Kembalikan"),
                   ),
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      surfaceTintColor: Colors.blue,
-                    ),
-                    onPressed: () {},
-                    child: const Text("Review"),
-                  ),
-                ),
+                // SizedBox(
+                //   width: double.infinity,
+                //   child: ElevatedButton(
+                //     style: ElevatedButton.styleFrom(
+                //       surfaceTintColor: Colors.blue,
+                //     ),
+                //     onPressed: () {},
+                //     child: const Text("Review"),
+                //   ),
+                // ),
               ],
             )
           ],
