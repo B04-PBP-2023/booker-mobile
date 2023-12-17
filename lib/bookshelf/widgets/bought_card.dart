@@ -1,19 +1,18 @@
-import 'package:booker/beli_buku/beli_buku.dart';
-import 'package:booker/login/login.dart';
+import 'package:booker/bookshelf/bookshelf.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
-import '../../main.dart';
-import '../../pinjam_buku/pinjam_buku.dart';
 
-class FrontpageCard extends StatelessWidget {
-  const FrontpageCard({
+import '../../main.dart';
+
+class BoughtCard extends StatelessWidget {
+  const BoughtCard({
     super.key,
     required this.index,
     required this.snapshot,
   });
 
-  final BookDataProvider snapshot;
+  final BookshelfDataProvider snapshot;
   final int index;
 
   @override
@@ -30,7 +29,7 @@ class FrontpageCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  snapshot.listBook[index].fields.name,
+                  snapshot.listBook[index].book.name,
                   style: const TextStyle(
                     fontSize: 16.5,
                     fontWeight: FontWeight.w500,
@@ -40,10 +39,10 @@ class FrontpageCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 8.0),
                 Text(
-                  "${snapshot.listBook[index].fields.author}, ${snapshot.listBook[index].fields.year}",
+                  "${snapshot.listBook[index].book.author}, ${snapshot.listBook[index].book.year}",
                 ),
                 Text(
-                  snapshot.listBook[index].fields.genre,
+                  snapshot.listBook[index].book.genre,
                 ),
               ],
             ),
@@ -59,7 +58,7 @@ class FrontpageCard extends StatelessWidget {
                         size: 19,
                         color: Colors.green,
                       ),
-                      Text("${snapshot.listBook[index].fields.price ?? '-'}",
+                      Text("${snapshot.listBook[index].book.price ?? '-'}",
                           style: const TextStyle(
                             fontSize: 16.5,
                             fontWeight: FontWeight.w500,
@@ -71,7 +70,7 @@ class FrontpageCard extends StatelessWidget {
                         size: 19,
                         color: Colors.orange,
                       ),
-                      Text("${snapshot.listBook[index].fields.rating}",
+                      Text("${snapshot.listBook[index].book.rating}",
                           style: const TextStyle(
                             fontSize: 16.5,
                             fontWeight: FontWeight.w500,
@@ -86,18 +85,7 @@ class FrontpageCard extends StatelessWidget {
                       surfaceTintColor: Colors.blue,
                       side: const BorderSide(color: Colors.blueAccent),
                     ),
-                    onPressed: snapshot.listBook[index].fields.forSale
-                        ? request.loggedIn
-                            ? () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => BeliBuku(data: snapshot, index: index));
-                              }
-                            : () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) => const LoginPage()));
-                              }
-                        : null,
+                    onPressed: () {},
                     child: const Text("Beli"),
                   ),
                 ),
@@ -108,16 +96,7 @@ class FrontpageCard extends StatelessWidget {
                       surfaceTintColor: Colors.blue,
                       side: const BorderSide(color: Colors.indigoAccent),
                     ),
-                    onPressed: request.loggedIn
-                        ? () {
-                            showDialog(
-                                context: context,
-                                builder: (context) => PinjamBuku(data: snapshot, index: index));
-                          }
-                        : () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => const LoginPage()));
-                          },
+                    onPressed: () {},
                     child: const Text("Pinjam"),
                   ),
                 ),

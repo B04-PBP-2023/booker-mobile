@@ -53,7 +53,6 @@ class _FrontpageState extends State<Frontpage> {
         appBar: FrontpageAppBar(
           fetchBook: fetchBook,
         ),
-        drawer: const LeftDrawer(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Consumer<BookDataProvider>(

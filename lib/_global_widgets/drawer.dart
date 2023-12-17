@@ -1,12 +1,16 @@
 import 'package:booker/bookshelf/bookshelf.dart';
+import 'package:booker/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:booker/frontpage/frontpage.dart';
+import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
+import 'package:provider/provider.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Drawer(
       child: ListView(
         children: [
@@ -50,11 +54,19 @@ class LeftDrawer extends StatelessWidget {
             leading: const Icon(Icons.shelves),
             title: const Text('Bookshelf'),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Bookshelf(),
-                  ));
+              if (request.loggedIn) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Bookshelf(),
+                    ));
+              } else {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ));
+              }
             },
           ),
         ],

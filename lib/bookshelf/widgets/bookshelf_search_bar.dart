@@ -41,10 +41,11 @@ class _BookshelfSearchBarState extends State<BookshelfSearchBar> {
     final request = context.watch<CookieRequest>();
     Future.delayed(Duration.zero, () => _searchbarFocusNode.requestFocus());
     return Center(
-      child: Consumer<BookDataProvider>(
+      child: Consumer<BookshelfDataProvider>(
         builder: (context, provider, child) {
           return SearchBar(
             controller: widget.searchBarController,
+            elevation: MaterialStatePropertyAll(1),
             focusNode: _searchbarFocusNode,
             onSubmitted: (val) {
               provider.setLoading(true);
@@ -64,8 +65,13 @@ class _BookshelfSearchBarState extends State<BookshelfSearchBar> {
             padding: const MaterialStatePropertyAll<EdgeInsets>(
               EdgeInsets.symmetric(horizontal: 4.0),
             ),
-            shape: const MaterialStatePropertyAll<OutlinedBorder>(LinearBorder()),
-            leading: Consumer<IsSearchProvider>(
+            shape: const MaterialStatePropertyAll<OutlinedBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(15.0), bottomRight: Radius.circular(15.0))),
+            ),
+            shadowColor: null,
+            leading: Consumer<IsSearchBookshelfProvider>(
               builder: (context, provider, child) {
                 return IconButton(
                   onPressed: () {

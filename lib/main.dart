@@ -4,6 +4,7 @@ import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
 import '_models/book.dart';
 import 'frontpage/widgets/frontpage_appbar.dart';
+import 'home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,7 +27,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<IsSearchBookshelfProvider>(
             create: (_) => IsSearchBookshelfProvider()),
         ChangeNotifierProvider<BookDataProvider>(create: (_) => BookDataProvider()),
+        ChangeNotifierProvider<BookshelfDataProvider>(create: (_) => BookshelfDataProvider()),
         ChangeNotifierProvider<UserDataProvider>(create: (_) => UserDataProvider()),
+        ChangeNotifierProvider<ScreenIndexProvider>(create: (_) => ScreenIndexProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -34,7 +37,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
           useMaterial3: true,
         ),
-        home: const Frontpage(),
+        home: const Home(),
       ),
     );
   }
@@ -55,6 +58,32 @@ class BookDataProvider extends ChangeNotifier {
 
   void setLoading(bool b) {
     _loading = b;
+    notifyListeners();
+  }
+}
+
+class BookshelfDataProvider extends ChangeNotifier {
+  List<dynamic> _listBook = [];
+  bool _loading = false;
+  bool _borrow = true;
+
+  List<dynamic> get listBook => _listBook;
+  bool get loading => _loading;
+  bool get borrow => _borrow;
+
+  Future<void> updateList(Future<List<dynamic>> list) async {
+    _listBook = await list;
+    _loading = false;
+    notifyListeners();
+  }
+
+  void setLoading(bool b) {
+    _loading = b;
+    notifyListeners();
+  }
+
+  void setBorrow(bool b) {
+    _borrow = b;
     notifyListeners();
   }
 }
@@ -91,6 +120,17 @@ class UserDataProvider extends ChangeNotifier {
   void updateUserData(String username, int points) {
     _username = username;
     _points = points;
+    notifyListeners();
+  }
+}
+
+class ScreenIndexProvider extends ChangeNotifier {
+  int _screenIndex = 1;
+
+  int get screenIndex => _screenIndex;
+
+  void updateScreenIndex(int index) {
+    _screenIndex = index;
     notifyListeners();
   }
 }

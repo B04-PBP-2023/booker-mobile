@@ -48,11 +48,11 @@ class _FrontpagePopupMenuState extends State<FrontpagePopupMenu> {
             style: SubmenuButton.styleFrom(
               alignment: Alignment.center,
             ),
-            alignmentOffset: Offset.fromDirection(0.0, -50),
+            alignmentOffset: Offset.fromDirection(0.0, -60),
             menuChildren: [
               MenuItemButton(
                 leadingIcon: const Icon(
-                  Icons.person,
+                  Icons.person_outlined,
                   color: Colors.black87,
                 ),
                 style: MenuItemButton.styleFrom(
@@ -62,7 +62,7 @@ class _FrontpagePopupMenuState extends State<FrontpagePopupMenu> {
               ),
               MenuItemButton(
                 leadingIcon: const Icon(
-                  Icons.diamond,
+                  Icons.diamond_outlined,
                   color: Colors.blueAccent,
                 ),
                 style: MenuItemButton.styleFrom(
@@ -100,7 +100,7 @@ class _FrontpagePopupMenuState extends State<FrontpagePopupMenu> {
                     style: TextStyle(color: Colors.redAccent),
                   ))
             ],
-            child: const Center(child: Icon(Icons.account_circle)),
+            child: const Center(child: Icon(Icons.account_circle_outlined)),
           )
         ]);
   }

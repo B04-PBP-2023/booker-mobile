@@ -30,6 +30,9 @@ class _FrontpageAppBarState extends State<FrontpageAppBar> {
         if (!provider.isSearch) {
           return AppBar(
             title: const Text("Booker"),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(15.0), bottomRight: Radius.circular(15.0))),
             actions: [
               IconButton(
                 onPressed: () => provider.toggleSearch(),
@@ -42,35 +45,35 @@ class _FrontpageAppBarState extends State<FrontpageAppBar> {
                   return Container();
                 }
               }),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Builder(builder: (context) {
-                  if (!request.loggedIn) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context, MaterialPageRoute(builder: (context) => const LoginPage()));
-                      },
-                      child: const Row(
-                        children: [
-                          Icon(Icons.login),
-                          Padding(
-                            padding: EdgeInsets.all(5.0),
-                            child: Text("Login"),
-                          )
-                        ],
-                      ),
-                    );
-                  } else {
-                    return Container();
-                  }
-                }),
-              )
+              Builder(builder: (context) {
+                if (!request.loggedIn) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => const LoginPage()));
+                    },
+                    child: const Row(
+                      children: [
+                        Icon(Icons.login),
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text("Login"),
+                        )
+                      ],
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
+              })
             ],
           );
         } else {
           return AppBar(
             automaticallyImplyLeading: false,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(15.0), bottomRight: Radius.circular(15.0))),
             actions: [
               Expanded(
                   child: FrontpageSearchBar(

@@ -43,6 +43,7 @@ class _FrontpageSearchBarState extends State<FrontpageSearchBar> {
           return SearchBar(
             controller: widget.searchBarController,
             focusNode: _searchbarFocusNode,
+            elevation: const MaterialStatePropertyAll(1),
             onSubmitted: (val) {
               provider.setLoading(true);
               search(val, widget.fetchBook, provider.updateList);
@@ -61,7 +62,11 @@ class _FrontpageSearchBarState extends State<FrontpageSearchBar> {
             padding: const MaterialStatePropertyAll<EdgeInsets>(
               EdgeInsets.symmetric(horizontal: 4.0),
             ),
-            shape: const MaterialStatePropertyAll<OutlinedBorder>(LinearBorder()),
+            shape: const MaterialStatePropertyAll<OutlinedBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(15.0), bottomRight: Radius.circular(15.0))),
+            ),
             leading: Consumer<IsSearchProvider>(
               builder: (context, provider, child) {
                 return IconButton(

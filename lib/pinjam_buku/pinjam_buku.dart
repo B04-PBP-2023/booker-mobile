@@ -21,85 +21,95 @@ class _PinjamBukuState extends State<PinjamBuku> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    return AlertDialog(
-      title: const Center(child: Text("Peminjaman")),
-      content: SingleChildScrollView(
-        child: SizedBox(
-          height: 270,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
+    return Consumer2<ScreenIndexProvider, BookshelfDataProvider>(
+      builder: (context, screenIndexProvider, bookshelfProvider, child) {
+        return AlertDialog(
+          title: const Center(child: Text("Peminjaman")),
+          content: SingleChildScrollView(
+            child: SizedBox(
+              height: 270,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.data.listBook[widget.index].fields.name,
-                    style: const TextStyle(
-                      fontSize: 16.5,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.data.listBook[widget.index].fields.name,
+                        style: const TextStyle(
+                          fontSize: 16.5,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        "${widget.data.listBook[widget.index].fields.author}, ${widget.data.listBook[widget.index].fields.year}",
+                      ),
+                      Text(
+                        widget.data.listBook[widget.index].fields.genre,
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    "${widget.data.listBook[widget.index].fields.author}, ${widget.data.listBook[widget.index].fields.year}",
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      DropdownMenu<int>(
+                          initialSelection: 1,
+                          label: const Text("Durasi (Hari)"),
+                          controller: dropdownController,
+                          dropdownMenuEntries: values.map<DropdownMenuEntry<int>>((int i) {
+                            return DropdownMenuEntry(value: i, label: i.toString());
+                          }).toList()),
+                    ],
                   ),
-                  Text(
-                    widget.data.listBook[widget.index].fields.genre,
-                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            side: const BorderSide(color: Colors.blueAccent),
+                          ),
+                          onPressed: () async {
+                            dynamic response = await request.post('/pinjambuku/peminjaman/', {
+                              'id': widget.data.listBook[widget.index].pk.toString(),
+                              'durasi': dropdownController.text.toString()
+                            });
+                            if (response['created'] == true) {
+                              Navigator.pop(context);
+                              bookshelfProvider.setBorrow(true);
+                              screenIndexProvider.updateScreenIndex(2);
+                            } else {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Gagal'),
+                                  content: Text(response['message']),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text('OK'),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          },
+                          child: const Text("Pinjam"),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
-              DropdownMenu<int>(
-                  initialSelection: 1,
-                  label: const Text("Durasi (Hari)"),
-                  controller: dropdownController,
-                  dropdownMenuEntries: values.map<DropdownMenuEntry<int>>((int i) {
-                    return DropdownMenuEntry(value: i, label: i.toString());
-                  }).toList()),
-              Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        side: const BorderSide(color: Colors.blueAccent),
-                      ),
-                      onPressed: () async {
-                        dynamic response = await request.post('/pinjambuku/peminjaman/', {
-                          'id': widget.data.listBook[widget.index].pk.toString(),
-                          'durasi': dropdownController.text.toString()
-                        });
-                        if (response['created'] == true) {
-                          Navigator.pop(context);
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (context) => Bookshelf()));
-                        } else {
-                          Navigator.pop(context);
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Gagal'),
-                              content: Text(response['message']),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      },
-                      child: const Text("Pinjam"),
-                    ),
-                  ),
-                ],
-              )
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
