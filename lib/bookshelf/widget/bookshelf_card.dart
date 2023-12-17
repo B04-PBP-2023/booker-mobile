@@ -81,7 +81,7 @@ class BookshelfCard extends StatelessWidget {
                       surfaceTintColor: Colors.blue,
                     ),
                     onPressed: () {},
-                    child: const Text("Beli"),
+                    child: const Text("Kembalikan"),
                   ),
                 ),
                 SizedBox(
@@ -91,7 +91,7 @@ class BookshelfCard extends StatelessWidget {
                       surfaceTintColor: Colors.blue,
                     ),
                     onPressed: () {},
-                    child: const Text("Pinjam"),
+                    child: const Text("Review"),
                   ),
                 ),
               ],
