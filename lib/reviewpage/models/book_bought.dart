@@ -1,42 +1,38 @@
 // To parse this JSON data, do
 //
-//     final bookBorrow = bookBorrowFromJson(jsonString);
+//     final bookBought = bookBoughtFromJson(jsonString);
 
 import 'dart:convert';
 
-List<BookBorrow> bookBorrowFromJson(String str) => List<BookBorrow>.from(json.decode(str).map((x) => BookBorrow.fromJson(x)));
+List<BookBought> bookBoughtFromJson(String str) => List<BookBought>.from(json.decode(str).map((x) => BookBought.fromJson(x)));
 
-String bookBorrowToJson(List<BookBorrow> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String bookBoughtToJson(List<BookBought> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class BookBorrow {
+class BookBought {
   int user;
-  BookBorrowed book;
-  DateTime startDate;
-  DateTime endDate;
+  BoughtBook book;
+  DateTime boughtDate;
 
-  BookBorrow({
+  BookBought({
     required this.user,
     required this.book,
-    required this.startDate,
-    required this.endDate,
+    required this.boughtDate,
   });
 
-  factory BookBorrow.fromJson(Map<String, dynamic> json) => BookBorrow(
+  factory BookBought.fromJson(Map<String, dynamic> json) => BookBought(
     user: json["user"],
-    book: BookBorrowed.fromJson(json["book"]),
-    startDate: DateTime.parse(json["start_date"]),
-    endDate: DateTime.parse(json["end_date"]),
+    book: BoughtBook.fromJson(json["book"]),
+    boughtDate: DateTime.parse(json["bought_date"]),
   );
 
   Map<String, dynamic> toJson() => {
     "user": user,
     "book": book.toJson(),
-    "start_date": "${startDate.year.toString().padLeft(4, '0')}-${startDate.month.toString().padLeft(2, '0')}-${startDate.day.toString().padLeft(2, '0')}",
-    "end_date": "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
+    "bought_date": "${boughtDate.year.toString().padLeft(4, '0')}-${boughtDate.month.toString().padLeft(2, '0')}-${boughtDate.day.toString().padLeft(2, '0')}",
   };
 }
 
-class BookBorrowed {
+class BoughtBook {
   int id;
   String name;
   String author;
@@ -49,7 +45,7 @@ class BookBorrowed {
   int pointsToExchange;
   bool forSale;
 
-  BookBorrowed({
+  BoughtBook({
     required this.id,
     required this.name,
     required this.author,
@@ -63,7 +59,7 @@ class BookBorrowed {
     required this.forSale,
   });
 
-  factory BookBorrowed.fromJson(Map<String, dynamic> json) => BookBorrowed(
+  factory BoughtBook.fromJson(Map<String, dynamic> json) => BoughtBook(
     id: json["id"],
     name: json["name"],
     author: json["author"],

@@ -63,7 +63,7 @@ class _ReviewPageState extends State<ReviewPage> {
 
               return Column(
                 children: [
-                  BookDataCard(idBuku: widget.idReview - 1),
+                  BookDataCard(idBuku: widget.idReview - 1, reviewCount: filteredData.length),
                   Expanded(
                     child: filteredData.isEmpty
                         ? const Text(
