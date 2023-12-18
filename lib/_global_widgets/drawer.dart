@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:booker/frontpage/frontpage.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
+import 'package:booker/lamanadmin/lamanadmin.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});

@@ -1,6 +1,8 @@
+import 'package:booker/_global_widgets/drawer.dart';
 import 'package:booker/bookshelf/bookshelf.dart';
 import 'package:booker/donasi_buku/donasi.dart';
 import 'package:booker/frontpage/frontpage.dart';
+import 'package:booker/lamanadmin/lamanadmin.dart';
 import 'package:booker/frontpage/widgets/frontpage_appbar.dart';
 import 'package:booker/main.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,7 @@ class _HomeState extends State<Home> {
     Donasi(),
     Frontpage(),
     Bookshelf(),
+    LamanAdmin(),
   ];
 
   @override
@@ -42,9 +45,14 @@ class _HomeState extends State<Home> {
               unselectedItemColor: Colors.black87,
               onTap: (index) => provider.updateScreenIndex(index),
               items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.menu_book_outlined), label: "Donasi"),
-                BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Beranda"),
-                BottomNavigationBarItem(icon: Icon(Icons.shelves), label: "Bookshelf"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.menu_book_outlined), label: "Donasi"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home_outlined), label: "Beranda"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.shelves), label: "Bookshelf"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.supervisor_account), label: "Laman Admin"),
               ],
             ),
           ),
