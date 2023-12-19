@@ -1,4 +1,3 @@
-import 'package:booker/frontpage/widgets/frontpage_card.dart';
 import 'package:booker/main.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';

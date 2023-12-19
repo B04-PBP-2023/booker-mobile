@@ -6,9 +6,6 @@ import 'package:booker/main.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
-import '_models/borrowed_book.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

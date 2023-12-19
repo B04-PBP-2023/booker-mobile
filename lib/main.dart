@@ -1,10 +1,7 @@
-import 'package:booker/frontpage/frontpage.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
 import '_models/book.dart';
-import '_models/borrowed_book.dart';
-import 'frontpage/widgets/frontpage_appbar.dart';
 import 'home.dart';
 
 void main() {
@@ -20,8 +17,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(create: (_) {
-          CookieRequest request = CookieRequest(
-              baseUrl: true ? 'https://booker-b04-tk.pbp.cs.ui.ac.id' : 'http://10.0.2.2:8000');
+          CookieRequest request = CookieRequest(baseUrl: 'https://booker-b04-tk.pbp.cs.ui.ac.id');
           return request;
         }),
         ChangeNotifierProvider<IsSearchProvider>(create: (_) => IsSearchProvider()),

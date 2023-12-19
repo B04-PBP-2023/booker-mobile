@@ -2,7 +2,6 @@ import 'package:booker/daftar/daftar.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
-import 'package:booker/frontpage/frontpage.dart';
 
 import '../main.dart';
 

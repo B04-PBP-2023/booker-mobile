@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
-import 'package:provider/provider.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import '../../main.dart';
 import '../../review/widgets/review_form.dart';
 
@@ -22,7 +19,6 @@ class BoughtCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final request = context.watch<CookieRequest>();
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(10.0),

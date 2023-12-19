@@ -1,9 +1,7 @@
-import 'package:booker/frontpage/frontpage.dart';
 import 'package:booker/frontpage/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
-
 import '../../login/login.dart';
 import '../../main.dart';
 import 'frontpage_popup_menu.dart';

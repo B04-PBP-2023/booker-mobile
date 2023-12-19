@@ -1,4 +1,3 @@
-import 'package:booker/review/widgets/book_data.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
@@ -11,10 +10,10 @@ class ReviewPage extends StatefulWidget {
   final int idReview;
 
   @override
-  _ReviewPageState createState() => _ReviewPageState();
+  ReviewPageState createState() => ReviewPageState();
 }
 
-class _ReviewPageState extends State<ReviewPage> {
+class ReviewPageState extends State<ReviewPage> {
   Future<List<BookReview>> fetchProduct(request) async {
     var response = await request.get('/reviewbuku/get-review-json-flutter/');
 

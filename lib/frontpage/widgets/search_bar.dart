@@ -1,10 +1,5 @@
-import 'package:booker/frontpage/frontpage.dart';
-import 'package:booker/frontpage/widgets/frontpage_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
-
-import '../../_models/book.dart';
 import '../../main.dart';
 
 class FrontpageSearchBar extends StatefulWidget {
@@ -35,7 +30,6 @@ class _FrontpageSearchBarState extends State<FrontpageSearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    final request = context.watch<CookieRequest>();
     Future.delayed(Duration.zero, () => _searchbarFocusNode.requestFocus());
     return Center(
       child: Consumer<BookDataProvider>(

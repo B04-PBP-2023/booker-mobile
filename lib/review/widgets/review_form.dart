@@ -1,12 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
-import 'package:booker/_global_widgets/drawer.dart';
-import 'package:booker/frontpage/frontpage.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
-import '../../main.dart';
 
 class ReviewFormPage extends StatefulWidget {
   const ReviewFormPage({super.key, required this.idBuku, this.snapshot});

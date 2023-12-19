@@ -1,8 +1,6 @@
-import 'package:booker/_global_widgets/drawer.dart';
 import 'package:booker/_models/book.dart';
 import 'package:booker/frontpage/widgets/frontpage_appbar.dart';
 import 'package:booker/frontpage/widgets/frontpage_card.dart';
-import 'package:booker/review/review.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';

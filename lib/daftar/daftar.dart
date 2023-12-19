@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
-import 'package:booker/frontpage/frontpage.dart';
 
 import '../main.dart';
 
@@ -138,7 +137,7 @@ class _DaftarPageState extends State<DaftarPage> {
                                   'password': password,
                                 });
 
-                                String message = response['message'];
+                                // String message = response['message'];
                                 String uname = response['username'];
                                 provider.toggleSearch();
                                 provider.toggleSearch();
