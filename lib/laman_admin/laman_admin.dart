@@ -12,29 +12,29 @@ class LamanAdmin extends StatefulWidget {
 }
 
 class _LamanAdminState extends State<LamanAdmin> {
-  Map<String, double> map_author = {};
-  Map<String, double> map_year = {};
-  Map<String, double> map_genre = {};
+  Map<String, double> mapAuthor = {};
+  Map<String, double> mapYear = {};
+  Map<String, double> mapGenre = {};
   Future<List<Book>> fetchBook() async {
     final request = Provider.of<CookieRequest>(context, listen: false);
 
     var response = [];
     response = await request.get('/api/books/');
 
-    List<Book> list_book = [];
+    List<Book> listBook = [];
 
     for (var b in response) {
       if (b != null) {
-        list_book.add(Book.fromJson(b));
+        listBook.add(Book.fromJson(b));
         String bAuthor = Book.fromJson(b).fields.author;
         String bYear = Book.fromJson(b).fields.year.toString();
         String bGenre = Book.fromJson(b).fields.genre;
-        map_author[bAuthor] = (map_author[bAuthor] ?? 0) + 1;
-        map_year[bYear] = (map_year[bYear] ?? 0) + 1;
-        map_genre[bGenre] = (map_genre[bGenre] ?? 0) + 1;
+        mapAuthor[bAuthor] = (mapAuthor[bAuthor] ?? 0) + 1;
+        mapYear[bYear] = (mapYear[bYear] ?? 0) + 1;
+        mapGenre[bGenre] = (mapGenre[bGenre] ?? 0) + 1;
       }
     }
-    return list_book;
+    return listBook;
   }
 
   @override
@@ -119,7 +119,7 @@ class _LamanAdminState extends State<LamanAdmin> {
                     );
                   } else {
                     return PieChart(
-                      dataMap: map_author,
+                      dataMap: mapAuthor,
                       baseChartColor: Colors.grey[300]!,
                       legendOptions: const LegendOptions(
                           legendPosition: LegendPosition.bottom,
@@ -151,7 +151,7 @@ class _LamanAdminState extends State<LamanAdmin> {
                     );
                   } else {
                     return PieChart(
-                      dataMap: map_year,
+                      dataMap: mapYear,
                       baseChartColor: Colors.grey[300]!,
                       legendOptions: const LegendOptions(legendTextStyle: TextStyle(fontSize: 12)),
                     );
@@ -180,7 +180,7 @@ class _LamanAdminState extends State<LamanAdmin> {
                     );
                   } else {
                     return PieChart(
-                      dataMap: map_genre,
+                      dataMap: mapGenre,
                       baseChartColor: Colors.grey[300]!,
                       legendOptions: const LegendOptions(
                           legendPosition: LegendPosition.bottom, showLegendsInRow: true),

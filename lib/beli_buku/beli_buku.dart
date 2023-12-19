@@ -99,6 +99,9 @@ class _BeliBukuState extends State<BeliBuku> {
                             dynamic response = await request.post('/belibuku/pembelian/', {
                               'id': widget.data.listBook[widget.index].pk.toString(),
                             });
+
+                            if (!mounted) return;
+
                             if (response['created'] == true) {
                               Navigator.pop(context);
                               bookshelfProvider.setBorrow(false);

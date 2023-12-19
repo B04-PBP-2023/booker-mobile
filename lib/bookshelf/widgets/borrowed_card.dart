@@ -92,6 +92,9 @@ class BorrowedCard extends StatelessWidget {
                           "id": snapshot.listBook[index].book.id.toString(),
                         });
                         String message = response["message"];
+
+                        if (!context.mounted) return;
+
                         if (response['success']) {
                           provider.setLoading(true);
                           provider.updateList(fetchBorrowed(''));

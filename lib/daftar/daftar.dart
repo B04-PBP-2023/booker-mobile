@@ -27,7 +27,7 @@ class DaftarPage extends StatefulWidget {
   const DaftarPage({super.key});
 
   @override
-  _DaftarPageState createState() => _DaftarPageState();
+  State<DaftarPage> createState() => _DaftarPageState();
 }
 
 class _DaftarPageState extends State<DaftarPage> {
@@ -137,6 +137,8 @@ class _DaftarPageState extends State<DaftarPage> {
                                   'password': password,
                                 });
 
+                                if (!mounted) return;
+
                                 // String message = response['message'];
                                 String uname = response['username'];
                                 provider.toggleSearch();
@@ -148,6 +150,8 @@ class _DaftarPageState extends State<DaftarPage> {
                                   ..showSnackBar(
                                       SnackBar(content: Text("Selamat datang, $uname.")));
                               } else {
+                                if (!mounted) return;
+
                                 showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(

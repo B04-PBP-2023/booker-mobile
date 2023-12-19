@@ -4,9 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ReviewFormPage extends StatefulWidget {
-  const ReviewFormPage({super.key, required this.idBuku, this.snapshot});
+  const ReviewFormPage({super.key, required this.idBuku});
   final int idBuku;
-  final snapshot;
 
   @override
   State<ReviewFormPage> createState() => _ReviewFormPageState();
@@ -83,6 +82,7 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                         'rating': _rating.toString(),
                         'review_text': _reviewText,
                       });
+                      if (!mounted) return;
                       if (response['status'] == 'success') {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text("Review berhasil disimpan!"),

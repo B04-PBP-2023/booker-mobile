@@ -86,6 +86,9 @@ class _FrontpagePopupMenuState extends State<FrontpagePopupMenu> {
                           onPressed: () async {
                             final response = await request.logout("/authentication/logout-mobile/");
                             String message = response["message"];
+
+                            if (!mounted) return;
+
                             if (response['status']) {
                               screenIndex.updateScreenIndex(1);
                               isSearch.toggleSearch();
@@ -153,6 +156,9 @@ class _FrontpagePopupMenuState extends State<FrontpagePopupMenu> {
                           onPressed: () async {
                             final response = await request.logout("/authentication/logout-mobile/");
                             String message = response["message"];
+
+                            if (!mounted) return;
+
                             if (response['status']) {
                               screenIndex.updateScreenIndex(1);
                               isSearch.toggleSearch();

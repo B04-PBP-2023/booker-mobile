@@ -41,7 +41,7 @@ class _BookshelfSearchBarState extends State<BookshelfSearchBar> {
         builder: (context, provider, child) {
           return SearchBar(
             controller: widget.searchBarController,
-            elevation: MaterialStatePropertyAll(1),
+            elevation: const MaterialStatePropertyAll(1),
             focusNode: _searchbarFocusNode,
             onSubmitted: (val) {
               provider.setLoading(true);

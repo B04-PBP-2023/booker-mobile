@@ -109,6 +109,8 @@ class _DonasiState extends State<Donasi> {
                       });
 
                       if (response['success']) {
+                        if (!mounted) return;
+
                         ScaffoldMessenger.of(context)
                           ..hideCurrentSnackBar()
                           ..showSnackBar(const SnackBar(content: Text("Donasi buku berhasil!")));

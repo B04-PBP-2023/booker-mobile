@@ -97,6 +97,7 @@ class _PinjamBukuState extends State<PinjamBuku> {
                               'id': widget.data.listBook[widget.index].pk.toString(),
                               'durasi': dropdownController.text.toString()
                             });
+                            if (!mounted) return;
                             if (response['created'] == true) {
                               Navigator.pop(context);
                               bookshelfProvider.setBorrow(true);

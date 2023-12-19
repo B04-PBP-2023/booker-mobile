@@ -28,7 +28,7 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -90,6 +90,8 @@ class _LoginPageState extends State<LoginPage> {
                             'username': username,
                             'password': password,
                           });
+
+                          if (!mounted) return;
 
                           if (request.loggedIn) {
                             String message = response['message'];
