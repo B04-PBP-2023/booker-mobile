@@ -1,8 +1,8 @@
 # Booker
 [![Build status](https://build.appcenter.ms/v0.1/apps/4e747ad8-afd3-4acf-bb96-3eb36ed692a8/branches/main/badge)](https://appcenter.ms)
-![Staging](https://github.com/B04-PBP-2023/booker/actions/workflows/staging.yml/badge.svg)
-![Pre-release](https://github.com/B04-PBP-2023/booker/actions/workflows/pre-release.yml/badge.svg)
-![Release](https://github.com/B04-PBP-2023/booker/actions/workflows/release.yml/badge.svg)
+![Staging](https://github.com/B04-PBP-2023/booker-mobile/actions/workflows/staging.yml/badge.svg)
+![Pre-release](https://github.com/B04-PBP-2023/booker-mobile/actions/workflows/pre-release.yml/badge.svg)
+![Release](https://github.com/B04-PBP-2023/booker-mobile/actions/workflows/release.yml/badge.svg)
 
 [Tautan untuk mengunduh apikasi](https://install.appcenter.ms/orgs/b04-pbp-2023/apps/booker/distribution_groups/public)
 
