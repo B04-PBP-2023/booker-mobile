@@ -1,4 +1,7 @@
+import 'package:booker/_models/book.dart';
 import 'package:booker/bookshelf/bookshelf.dart';
+import 'package:booker/review/review.dart';
+import 'package:booker/review/widgets/review_form.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
@@ -7,16 +10,18 @@ import 'package:provider/provider.dart';
 import '../../main.dart';
 
 class BorrowedCard extends StatelessWidget {
-  BorrowedCard({
+  const BorrowedCard({
     super.key,
     required this.index,
     required this.snapshot,
+    required this.df,
+    required this.fetchBorrowed,
   });
 
   final BookshelfDataProvider snapshot;
   final int index;
-
-  final df = DateFormat('d MMMM yyyy');
+  final DateFormat df;
+  final Function fetchBorrowed;
 
   @override
   Widget build(BuildContext context) {
@@ -67,21 +72,45 @@ class BorrowedCard extends StatelessWidget {
                       surfaceTintColor: Colors.blue,
                       side: const BorderSide(color: Colors.blueAccent),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  ReviewFormPage(idBuku: snapshot.listBook[index].book.id)));
+                    },
                     child: const Text("Review"),
                   ),
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      surfaceTintColor: Colors.blue,
-                      side: const BorderSide(color: Colors.indigoAccent),
+                Consumer<BookshelfDataProvider>(builder: (context, provider, child) {
+                  return SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        surfaceTintColor: Colors.blue,
+                        side: const BorderSide(color: Colors.indigoAccent),
+                      ),
+                      onPressed: () async {
+                        final response = await request.post("/pinjambuku/pengembalian/", {
+                          "id": snapshot.listBook[index].book.id.toString(),
+                        });
+                        String message = response["message"];
+                        if (response['success']) {
+                          provider.setLoading(true);
+                          provider.updateList(fetchBorrowed(''));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(message),
+                          ));
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(message),
+                          ));
+                        }
+                      },
+                      child: const Text("Kembalikan"),
                     ),
-                    onPressed: () {},
-                    child: const Text("Kembalikan"),
-                  ),
-                ),
+                  );
+                }),
               ],
             )
           ],

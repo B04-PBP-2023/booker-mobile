@@ -36,10 +36,10 @@ class _BookshelfAppBarState extends State<BookshelfAppBar> {
                     bottomLeft: Radius.circular(15.0), bottomRight: Radius.circular(15.0))),
             title: const Text("Bookshelf"),
             actions: [
-              IconButton(
-                onPressed: () => provider.toggleSearch(),
-                icon: const Icon(Icons.search),
-              ),
+              // IconButton(
+              //   onPressed: () => provider.toggleSearch(),
+              //   icon: const Icon(Icons.search),
+              // ),
               Builder(builder: (context) {
                 if (request.loggedIn) {
                   return const FrontpagePopupMenu();

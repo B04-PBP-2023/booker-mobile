@@ -1,8 +1,8 @@
-import 'package:booker/bookshelf/bookshelf.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
-
+import 'package:intl/date_symbol_data_local.dart';
 import '../../main.dart';
 
 class BoughtCard extends StatelessWidget {
@@ -10,10 +10,14 @@ class BoughtCard extends StatelessWidget {
     super.key,
     required this.index,
     required this.snapshot,
+    required this.df,
+    required this.fetchBought,
   });
 
   final BookshelfDataProvider snapshot;
   final int index;
+  final DateFormat df;
+  final Function fetchBought;
 
   @override
   Widget build(BuildContext context) {
@@ -49,34 +53,13 @@ class BoughtCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(children: [
-                      const Icon(
-                        Icons.attach_money,
-                        size: 19,
-                        color: Colors.green,
-                      ),
-                      Text("${snapshot.listBook[index].book.price ?? '-'}",
-                          style: const TextStyle(
-                            fontSize: 16.5,
-                            fontWeight: FontWeight.w500,
-                          ))
-                    ]),
-                    Row(children: [
-                      const Icon(
-                        Icons.star,
-                        size: 19,
-                        color: Colors.orange,
-                      ),
-                      Text("${snapshot.listBook[index].book.rating}",
-                          style: const TextStyle(
-                            fontSize: 16.5,
-                            fontWeight: FontWeight.w500,
-                          ))
-                    ]),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 3.0),
+                  child: Text(
+                    "Tanggal pembelian:\n${df.format(snapshot.listBook[index].boughtDate)}",
+                    style: const TextStyle(fontSize: 12.0),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 SizedBox(
                   width: double.infinity,
@@ -86,18 +69,7 @@ class BoughtCard extends StatelessWidget {
                       side: const BorderSide(color: Colors.blueAccent),
                     ),
                     onPressed: () {},
-                    child: const Text("Beli"),
-                  ),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      surfaceTintColor: Colors.blue,
-                      side: const BorderSide(color: Colors.indigoAccent),
-                    ),
-                    onPressed: () {},
-                    child: const Text("Pinjam"),
+                    child: const Text("Review"),
                   ),
                 ),
               ],

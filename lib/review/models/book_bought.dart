@@ -1,23 +1,29 @@
+// To parse this JSON data, do
+//
+//     final bookBought = bookBoughtFromJson(jsonString);
+
 import 'dart:convert';
 
-class BoughtBook {
+List<BookBought> bookBoughtFromJson(String str) =>
+    List<BookBought>.from(json.decode(str).map((x) => BookBought.fromJson(x)));
+
+String bookBoughtToJson(List<BookBought> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+class BookBought {
   int user;
-  Books book;
+  BoughtBook book;
   DateTime boughtDate;
 
-  BoughtBook({
+  BookBought({
     required this.user,
     required this.book,
     required this.boughtDate,
   });
 
-  factory BoughtBook.fromRawJson(String str) => BoughtBook.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory BoughtBook.fromJson(Map<String, dynamic> json) => BoughtBook(
+  factory BookBought.fromJson(Map<String, dynamic> json) => BookBought(
         user: json["user"],
-        book: Books.fromJson(json["book"]),
+        book: BoughtBook.fromJson(json["book"]),
         boughtDate: DateTime.parse(json["bought_date"]),
       );
 
@@ -29,7 +35,7 @@ class BoughtBook {
       };
 }
 
-class Books {
+class BoughtBook {
   int id;
   String name;
   String author;
@@ -42,7 +48,7 @@ class Books {
   int pointsToExchange;
   bool forSale;
 
-  Books({
+  BoughtBook({
     required this.id,
     required this.name,
     required this.author,
@@ -56,11 +62,7 @@ class Books {
     required this.forSale,
   });
 
-  factory Books.fromRawJson(String str) => Books.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Books.fromJson(Map<String, dynamic> json) => Books(
+  factory BoughtBook.fromJson(Map<String, dynamic> json) => BoughtBook(
         id: json["id"],
         name: json["name"],
         author: json["author"],

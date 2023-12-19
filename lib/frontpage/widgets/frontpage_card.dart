@@ -1,5 +1,6 @@
 import 'package:booker/beli_buku/beli_buku.dart';
 import 'package:booker/login/login.dart';
+import 'package:booker/review/review.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
@@ -65,18 +66,31 @@ class FrontpageCard extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ))
                     ]),
-                    Row(children: [
-                      const Icon(
-                        Icons.star,
-                        size: 19,
-                        color: Colors.orange,
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ReviewPage(
+                                    idReview: snapshot.listBook[index].pk, index: index)));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        surfaceTintColor: Colors.blue,
+                        side: const BorderSide(color: Colors.blueAccent),
                       ),
-                      Text("${snapshot.listBook[index].fields.rating}",
-                          style: const TextStyle(
-                            fontSize: 16.5,
-                            fontWeight: FontWeight.w500,
-                          ))
-                    ]),
+                      child: Row(children: [
+                        const Icon(
+                          Icons.star,
+                          size: 19,
+                          color: Colors.orange,
+                        ),
+                        Text("${snapshot.listBook[index].fields.rating}",
+                            style: const TextStyle(
+                              fontSize: 16.5,
+                              fontWeight: FontWeight.w500,
+                            ))
+                      ]),
+                    ),
                   ],
                 ),
                 SizedBox(

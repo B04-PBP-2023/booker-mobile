@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class BorrowedBook {
   int user;
-  Book book;
+  Books book;
   DateTime startDate;
   DateTime endDate;
 
@@ -19,7 +19,7 @@ class BorrowedBook {
 
   factory BorrowedBook.fromJson(Map<String, dynamic> json) => BorrowedBook(
         user: json["user"],
-        book: Book.fromJson(json["book"]),
+        book: Books.fromJson(json["book"]),
         startDate: DateTime.parse(json["start_date"]),
         endDate: DateTime.parse(json["end_date"]),
       );
@@ -34,7 +34,7 @@ class BorrowedBook {
       };
 }
 
-class Book {
+class Books {
   int id;
   String name;
   String author;
@@ -47,7 +47,7 @@ class Book {
   int pointsToExchange;
   bool forSale;
 
-  Book({
+  Books({
     required this.id,
     required this.name,
     required this.author,
@@ -61,17 +61,17 @@ class Book {
     required this.forSale,
   });
 
-  factory Book.fromRawJson(String str) => Book.fromJson(json.decode(str));
+  factory Books.fromRawJson(String str) => Books.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Book.fromJson(Map<String, dynamic> json) => Book(
+  factory Books.fromJson(Map<String, dynamic> json) => Books(
         id: json["id"],
         name: json["name"],
         author: json["author"],
         rating: json["rating"]?.toDouble(),
         reviews: json["reviews"],
-        price: json["price"],
+        price: json["price"] ?? 0,
         year: json["year"],
         genre: json["genre"],
         stock: json["stock"],

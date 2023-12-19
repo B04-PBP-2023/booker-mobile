@@ -2,6 +2,7 @@ import 'package:booker/_global_widgets/drawer.dart';
 import 'package:booker/_models/book.dart';
 import 'package:booker/frontpage/widgets/frontpage_appbar.dart';
 import 'package:booker/frontpage/widgets/frontpage_card.dart';
+import 'package:booker/review/review.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
@@ -68,7 +69,7 @@ class _FrontpageState extends State<Frontpage> {
                     crossAxisSpacing: 8.0,
                     mainAxisSpacing: 8.0,
                     shrinkWrap: true,
-                    childAspectRatio: 0.65,
+                    childAspectRatio: 0.6,
                     children: List.generate(provider.listBook.length, (index) {
                       return FrontpageCard(
                         index: index,

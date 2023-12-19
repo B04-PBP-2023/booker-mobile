@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
 
+import '../_models/bought_book.dart';
+
 class BeliBuku extends StatefulWidget {
   const BeliBuku({super.key, required this.data, required this.index});
 
@@ -15,6 +17,26 @@ class BeliBuku extends StatefulWidget {
 }
 
 class _BeliBukuState extends State<BeliBuku> {
+  Future<List<BoughtBook>> fetchBought(String query) async {
+    final request = Provider.of<CookieRequest>(context, listen: false);
+
+    var response = [];
+    if (query == '') {
+      response = await request.get('/bookshelf/get-bookshelf?borrow=0');
+    } else {
+      response = await request.get('/bookshelf/search_bookshelf?borrow=0&q=$query');
+    }
+
+    List<BoughtBook> listBook = [];
+    for (var book in response) {
+      if (book != null) {
+        listBook.add(BoughtBook.fromJson(book));
+      }
+    }
+
+    return listBook;
+  }
+
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -81,7 +103,12 @@ class _BeliBukuState extends State<BeliBuku> {
                             if (response['created'] == true) {
                               Navigator.pop(context);
                               bookshelfProvider.setBorrow(false);
+                              bookshelfProvider.setLoading(true);
+                              bookshelfProvider.updateList(fetchBought(''));
                               screenIndexProvider.updateScreenIndex(2);
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(SnackBar(content: Text(response['message'])));
                             } else {
                               Navigator.pop(context);
                               showDialog(
