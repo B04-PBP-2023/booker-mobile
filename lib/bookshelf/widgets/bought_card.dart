@@ -4,6 +4,7 @@ import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import '../../main.dart';
+import '../../review/widgets/review_form.dart';
 
 class BoughtCard extends StatelessWidget {
   const BoughtCard({
@@ -68,7 +69,13 @@ class BoughtCard extends StatelessWidget {
                       surfaceTintColor: Colors.blue,
                       side: const BorderSide(color: Colors.blueAccent),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  ReviewFormPage(idBuku: snapshot.listBook[index].book.id)));
+                    },
                     child: const Text("Review"),
                   ),
                 ),
