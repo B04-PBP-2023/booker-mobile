@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../main.dart';
 
-class FrontpageSearchBar extends StatefulWidget {
-  const FrontpageSearchBar({super.key, required this.fetchBook, required this.searchBarController});
+class BookshelfSearchBar extends StatefulWidget {
+  const BookshelfSearchBar(
+      {super.key,
+      required this.fetchBorrowed,
+      required this.fetchBought,
+      required this.searchBarController});
 
-  final Function fetchBook;
+  final Function fetchBorrowed;
+  final Function fetchBought;
   final TextEditingController searchBarController;
 
   @override
-  State<FrontpageSearchBar> createState() => _FrontpageSearchBarState();
+  State<BookshelfSearchBar> createState() => _BookshelfSearchBarState();
 }
 
-class _FrontpageSearchBarState extends State<FrontpageSearchBar> {
+class _BookshelfSearchBarState extends State<BookshelfSearchBar> {
   final _searchbarFocusNode = FocusNode();
   bool _isSearchPopulated = false;
   void search(String val, Function fetch, Function update) {
@@ -32,15 +37,15 @@ class _FrontpageSearchBarState extends State<FrontpageSearchBar> {
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero, () => _searchbarFocusNode.requestFocus());
     return Center(
-      child: Consumer<BookDataProvider>(
+      child: Consumer<BookshelfDataProvider>(
         builder: (context, provider, child) {
           return SearchBar(
             controller: widget.searchBarController,
-            focusNode: _searchbarFocusNode,
             elevation: const MaterialStatePropertyAll(1),
+            focusNode: _searchbarFocusNode,
             onSubmitted: (val) {
               provider.setLoading(true);
-              search(val, widget.fetchBook, provider.updateList);
+              // search(val, widget.fetchBook, provider.updateList);
             },
             onChanged: (val) {
               setState(() {
@@ -50,7 +55,7 @@ class _FrontpageSearchBarState extends State<FrontpageSearchBar> {
                 setState(() {
                   _isSearchPopulated = false;
                 });
-                return search(val, widget.fetchBook, provider.updateList);
+                // return search(val, widget.fetchBook, provider.updateList);
               }
             },
             padding: const MaterialStatePropertyAll<EdgeInsets>(
@@ -61,7 +66,8 @@ class _FrontpageSearchBarState extends State<FrontpageSearchBar> {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(15.0), bottomRight: Radius.circular(15.0))),
             ),
-            leading: Consumer<IsSearchProvider>(
+            shadowColor: null,
+            leading: Consumer<IsSearchBookshelfProvider>(
               builder: (context, provider, child) {
                 return IconButton(
                   onPressed: () {
@@ -82,7 +88,7 @@ class _FrontpageSearchBarState extends State<FrontpageSearchBar> {
                         _isSearchPopulated = false;
                       });
                       provider.setLoading(true);
-                      return search('', widget.fetchBook, provider.updateList);
+                      // return search('', widget.fetchBook, provider.updateList);
                     },
                     icon: const Icon(Icons.close),
                   );
