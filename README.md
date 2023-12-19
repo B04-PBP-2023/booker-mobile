@@ -1,5 +1,5 @@
 # Booker
-
+[![Build status](https://build.appcenter.ms/v0.1/apps/4e747ad8-afd3-4acf-bb96-3eb36ed692a8/branches/main/badge)](https://appcenter.ms)
 [Berita acara](https://1drv.ms/x/s!Ar5Hb9gKjcO7hcdg0luy9o4mG9s4gg?e=d1LLew)
 
 Booker adalah aplikasi _mobile_ untuk meminjam, mendonasikan, dan membeli buku. Aplikasi _mobile_ ini dilengkapi dengan sistem poin yang bisa didapatkan ketika meminjam, melakukan review, serta mendonasikan buku. Poin tersebut dapat ditukarkan dengan buku gratis. Dengan sistem ini, diharapkan pengguna semakin termotivasi untuk membaca buku, dan membantu meningkatkan literasi masyarakat Indonesia.
