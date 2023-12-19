@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider(create: (_) {
           CookieRequest request = CookieRequest(
-              baseUrl: false ? 'https://booker-b04-tk.pbp.cs.ui.ac.id' : 'http://10.0.2.2:8000');
+              baseUrl: true ? 'https://booker-b04-tk.pbp.cs.ui.ac.id' : 'http://10.0.2.2:8000');
           return request;
         }),
         ChangeNotifierProvider<IsSearchProvider>(create: (_) => IsSearchProvider()),
