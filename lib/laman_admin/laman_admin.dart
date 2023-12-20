@@ -26,9 +26,9 @@ class _LamanAdminState extends State<LamanAdmin> {
       if (b != null) {
         Book book = Book.fromJson(b);
         if (query != "") {
-          if (query.toLowerCase() == book.fields.name.toLowerCase() ||
-              query.toLowerCase() == book.fields.author.toLowerCase() ||
-              query.toLowerCase() == book.fields.genre.toLowerCase()) {
+          if (book.fields.name.toLowerCase().contains(query.toLowerCase()) ||
+              book.fields.author.toLowerCase().contains(query.toLowerCase()) ||
+              book.fields.genre.toLowerCase().contains(query.toLowerCase())) {
             listBook.add(book);
           }
         } else {
@@ -45,7 +45,6 @@ class _LamanAdminState extends State<LamanAdmin> {
       appBar: AppBar(
         title: const Text('Booker'),
       ),
-      drawer: const LeftDrawer(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -88,6 +87,7 @@ class _LamanAdminState extends State<LamanAdmin> {
                     );
                   } else {
                     return DataTable(
+                      dataRowMaxHeight: double.infinity,
                       columns: const [
                         DataColumn(label: Text('Name')),
                         DataColumn(label: Text('Author')),
