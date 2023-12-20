@@ -82,37 +82,52 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                         'rating': _rating.toString(),
                         'review_text': _reviewText,
                       });
-                      await request.post("/reviewbuku/ubah_rating/", {
-                        'book_id': widget.idBuku.toString(),
-                      });
                       if (!mounted) return;
                       if (response['status'] == 'success') {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Review berhasil disimpan!"),
-                        ));
+                        await request.post("/reviewbuku/ubah_rating/", {
+                          'book_id': widget.idBuku.toString(),
+                        });
+                        if (!mounted) return;
                         Navigator.pop(context);
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Berhasil'),
+                              content: const Text(
+                                  'Terima kasih telah me-review, kamu mendapat 10 poin!'),
+                              actions: [
+                                TextButton(
+                                  child: const Text('OK'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Terdapat kesalahan, silakan coba lagi."),
-                        ));
+                        Navigator.pop(context);
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text('Gagal'),
+                              content: const Text(
+                                  'Gagal menyimpan review, buku sudah pernah kamu review.'),
+                              actions: [
+                                TextButton(
+                                  child: const Text('OK'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       }
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title:
-                                const Text('Terima kasih telah me-review, kamu mendapat 10 poin!'),
-                            actions: [
-                              TextButton(
-                                child: const Text('OK'),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
                     }
                     _formKey.currentState!.reset();
                   },

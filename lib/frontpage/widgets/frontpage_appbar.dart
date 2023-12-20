@@ -20,6 +20,18 @@ class FrontpageAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _FrontpageAppBarState extends State<FrontpageAppBar> {
   final TextEditingController _searchBarController = TextEditingController();
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final prov = Provider.of<IsSearchProvider>(context, listen: false);
+      await Provider.of<CookieRequest>(context, listen: false).get('/authentication/is-anonymous/');
+      prov.toggleSearch();
+      prov.toggleSearch();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();

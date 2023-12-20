@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
 
+import '_models/borrowed_book.dart';
+import '_models/bought_book.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -20,6 +23,51 @@ class _HomeState extends State<Home> {
     Frontpage(),
     Bookshelf(),
   ];
+
+  Future<List<BorrowedBook>> fetchBorrowed(String query) async {
+    final request = Provider.of<CookieRequest>(context, listen: false);
+
+    var response = [];
+    if (query == '') {
+      response = await request.get('/bookshelf/get-bookshelf?borrow=1');
+    } else {
+      response = await request.get('/bookshelf/search_bookshelf?borrow=1&q=$query');
+    }
+
+    List<BorrowedBook> listBook = [];
+    for (var book in response) {
+      if (book != null) {
+        listBook.add(BorrowedBook.fromJson(book));
+      }
+    }
+
+    return listBook;
+  }
+
+  Future<List<BoughtBook>> fetchBought(String query) async {
+    final request = Provider.of<CookieRequest>(context, listen: false);
+
+    var response = [];
+    if (query == '') {
+      response = await request.get('/bookshelf/get-bookshelf?borrow=0');
+    } else {
+      response = await request.get('/bookshelf/search_bookshelf?borrow=0&q=$query');
+    }
+
+    List<BoughtBook> listBook = [];
+    for (var book in response) {
+      if (book != null) {
+        listBook.add(BoughtBook.fromJson(book));
+      }
+    }
+
+    return listBook;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +90,22 @@ class _HomeState extends State<Home> {
               unselectedFontSize: 12.5,
               selectedItemColor: Colors.black87,
               unselectedItemColor: Colors.black87,
-              onTap: (index) {
+              onTap: (index) async {
                 if (index == 1 || request.loggedIn) {
                   provider.updateScreenIndex(index);
+                  if (index == 1) {
+                    Provider.of<IsSearchProvider>(context, listen: false).toggleSearch();
+                    Provider.of<IsSearchProvider>(context, listen: false).toggleSearch();
+                  } else if (index == 2) {
+                    final prov = Provider.of<BookshelfDataProvider>(context, listen: false);
+                    if (prov.borrow) {
+                      prov.setLoading(true);
+                      prov.updateList(fetchBorrowed(''));
+                    } else {
+                      prov.setLoading(true);
+                      prov.updateList(fetchBought(''));
+                    }
+                  }
                 } else {
                   Navigator.push(
                       context, MaterialPageRoute(builder: (context) => const LoginPage()));

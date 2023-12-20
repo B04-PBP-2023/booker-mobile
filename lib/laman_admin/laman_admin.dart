@@ -2,7 +2,7 @@ import 'package:booker/_models/book.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth_extended/pbp_django_auth_extended.dart';
 import 'package:provider/provider.dart';
-import 'package:pie_chart/pie_chart.dart';
+import 'package:booker/laman_admin/widgets/laman_admin_piechart.dart';
 
 class LamanAdmin extends StatefulWidget {
   const LamanAdmin({super.key});
@@ -12,26 +12,27 @@ class LamanAdmin extends StatefulWidget {
 }
 
 class _LamanAdminState extends State<LamanAdmin> {
-  Map<String, double> mapAuthor = {};
-  Map<String, double> mapYear = {};
-  Map<String, double> mapGenre = {};
-  Future<List<Book>> fetchBook() async {
+  TextEditingController searchbar = TextEditingController();
+  String query = "";
+  Future<List<Book>> fetchBook(String query) async {
     final request = Provider.of<CookieRequest>(context, listen: false);
 
     var response = [];
     response = await request.get('/api/books/');
 
     List<Book> listBook = [];
-
     for (var b in response) {
       if (b != null) {
-        listBook.add(Book.fromJson(b));
-        String bAuthor = Book.fromJson(b).fields.author;
-        String bYear = Book.fromJson(b).fields.year.toString();
-        String bGenre = Book.fromJson(b).fields.genre;
-        mapAuthor[bAuthor] = (mapAuthor[bAuthor] ?? 0) + 1;
-        mapYear[bYear] = (mapYear[bYear] ?? 0) + 1;
-        mapGenre[bGenre] = (mapGenre[bGenre] ?? 0) + 1;
+        Book book = Book.fromJson(b);
+        if (query != "") {
+          if (book.fields.name.toLowerCase().contains(query.toLowerCase()) ||
+              book.fields.author.toLowerCase().contains(query.toLowerCase()) ||
+              book.fields.genre.toLowerCase().contains(query.toLowerCase())) {
+            listBook.add(book);
+          }
+        } else {
+          listBook.add(book);
+        }
       }
     }
     return listBook;
@@ -41,7 +42,7 @@ class _LamanAdminState extends State<LamanAdmin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Admin'),
+        title: const Text('Booker'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -56,8 +57,23 @@ class _LamanAdminState extends State<LamanAdmin> {
               ),
             ),
             const SizedBox(height: 20),
+            TextField(
+              controller: searchbar,
+              decoration: InputDecoration(
+                hintText: 'Cari buku, penulis, genre...',
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {
+                    setState(() {
+                      query = searchbar.text;
+                      searchbar.clear();
+                    });
+                  },
+                ),
+              ),
+            ),
             FutureBuilder(
-              future: fetchBook(),
+              future: fetchBook(query),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.data == null) {
                   return const Center(child: CircularProgressIndicator());
@@ -70,6 +86,7 @@ class _LamanAdminState extends State<LamanAdmin> {
                     );
                   } else {
                     return DataTable(
+                      dataRowMaxHeight: double.infinity,
                       columns: const [
                         DataColumn(label: Text('Name')),
                         DataColumn(label: Text('Author')),
@@ -98,97 +115,7 @@ class _LamanAdminState extends State<LamanAdmin> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 20),
-            const Text(
-              'Tabel Data Author',
-              style: TextStyle(
-                fontSize: 20.0,
-              ),
-            ),
-            FutureBuilder(
-              future: fetchBook(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.data == null) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  if (!snapshot.hasData) {
-                    return const Column(
-                      children: [
-                        Text("Tidak ada data produk."),
-                      ],
-                    );
-                  } else {
-                    return PieChart(
-                      dataMap: mapAuthor,
-                      baseChartColor: Colors.grey[300]!,
-                      legendOptions: const LegendOptions(
-                          legendPosition: LegendPosition.bottom,
-                          showLegendsInRow: true,
-                          legendTextStyle: TextStyle(fontSize: 8)),
-                    );
-                  }
-                }
-              },
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Tabel Data Year',
-              style: TextStyle(
-                fontSize: 20.0,
-              ),
-            ),
-            FutureBuilder(
-              future: fetchBook(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.data == null) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  if (!snapshot.hasData) {
-                    return const Column(
-                      children: [
-                        Text("Tidak ada data produk."),
-                      ],
-                    );
-                  } else {
-                    return PieChart(
-                      dataMap: mapYear,
-                      baseChartColor: Colors.grey[300]!,
-                      legendOptions: const LegendOptions(legendTextStyle: TextStyle(fontSize: 12)),
-                    );
-                  }
-                }
-              },
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Tabel Data Genre',
-              style: TextStyle(
-                fontSize: 20.0,
-              ),
-            ),
-            FutureBuilder(
-              future: fetchBook(),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.data == null) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  if (!snapshot.hasData) {
-                    return const Column(
-                      children: [
-                        Text("Tidak ada data produk."),
-                      ],
-                    );
-                  } else {
-                    return PieChart(
-                      dataMap: mapGenre,
-                      baseChartColor: Colors.grey[300]!,
-                      legendOptions: const LegendOptions(
-                          legendPosition: LegendPosition.bottom, showLegendsInRow: true),
-                    );
-                  }
-                }
-              },
-            ),
+            const LamanAdminPiechart(),
           ],
         ),
       ),
