@@ -82,6 +82,9 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                         'rating': _rating.toString(),
                         'review_text': _reviewText,
                       });
+                      await request.post("/reviewbuku/ubah_rating/", {
+                        'book_id': widget.idBuku.toString(),
+                      });
                       if (!mounted) return;
                       if (response['status'] == 'success') {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
