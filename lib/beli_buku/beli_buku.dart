@@ -139,7 +139,42 @@ class _BeliBukuState extends State<BeliBuku> {
                           style: ElevatedButton.styleFrom(
                             side: const BorderSide(color: Colors.indigoAccent),
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                            dynamic response =
+                                await request.post('/belibuku/pembelian-dengan-poin/', {
+                              'id': widget.data.listBook[widget.index].pk.toString(),
+                            });
+
+                            if (!mounted) return;
+
+                            if (response['created'] == true) {
+                              Navigator.pop(context);
+                              bookshelfProvider.setBorrow(false);
+                              bookshelfProvider.setLoading(true);
+                              bookshelfProvider.updateList(fetchBought(''));
+                              screenIndexProvider.updateScreenIndex(2);
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(SnackBar(content: Text(response['message'])));
+                            } else {
+                              Navigator.pop(context);
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Gagal'),
+                                  content: Text(response['message']),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text('OK'),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          },
                           child: const Text("Tukar dengan 100 poin"),
                         ),
                       ),
