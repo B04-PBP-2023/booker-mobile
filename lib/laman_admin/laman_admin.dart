@@ -21,7 +21,7 @@ class _LamanAdminState extends State<LamanAdmin> {
     var response = [];
     response = await request.get('/api/books/');
 
-    List<Book> list_book = [];
+    List<Book> listBook = [];
     for (var b in response) {
       if (b != null) {
         Book book = Book.fromJson(b);
@@ -29,21 +29,21 @@ class _LamanAdminState extends State<LamanAdmin> {
           if (query.toLowerCase() == book.fields.name.toLowerCase() ||
               query.toLowerCase() == book.fields.author.toLowerCase() ||
               query.toLowerCase() == book.fields.genre.toLowerCase()) {
-            list_book.add(book);
+            listBook.add(book);
           }
         } else {
-          list_book.add(book);
+          listBook.add(book);
         }
       }
     }
-    return list_book;
+    return listBook;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Booker'),
+        title: const Text('Booker'),
       ),
       drawer: const LeftDrawer(),
       body: SingleChildScrollView(
@@ -51,20 +51,20 @@ class _LamanAdminState extends State<LamanAdmin> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Data Stok Buku',
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextField(
               controller: searchbar,
               decoration: InputDecoration(
                 hintText: 'Cari buku, penulis, genre...',
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
+                  icon: const Icon(Icons.search),
                   onPressed: () {
                     setState(() {
                       query = searchbar.text;
@@ -88,7 +88,7 @@ class _LamanAdminState extends State<LamanAdmin> {
                     );
                   } else {
                     return DataTable(
-                      columns: [
+                      columns: const [
                         DataColumn(label: Text('Name')),
                         DataColumn(label: Text('Author')),
                         DataColumn(label: Text('Stock'))
@@ -108,15 +108,15 @@ class _LamanAdminState extends State<LamanAdmin> {
                 }
               },
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Data Grafik Buku',
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            LamanAdminPiechart(),
+            const LamanAdminPiechart(),
           ],
         ),
       ),

@@ -17,14 +17,14 @@ class _LamanAdminPiechartState extends State<LamanAdminPiechart> {
 
     var response = [];
     response = await request.get('/api/books/');
-    Map<String, double> map_author = {};
+    Map<String, double> mapAuthor = {};
     for (var b in response) {
       if (b != null) {
-        String b_author = Book.fromJson(b).fields.author;
-        map_author[b_author] = (map_author[b_author] ?? 0) + 1;
+        String bAuthor = Book.fromJson(b).fields.author;
+        mapAuthor[bAuthor] = (mapAuthor[bAuthor] ?? 0) + 1;
       }
     }
-    return map_author;
+    return mapAuthor;
   }
 
   Future<Map<String, double>> fetchYear() async {
@@ -32,14 +32,14 @@ class _LamanAdminPiechartState extends State<LamanAdminPiechart> {
 
     var response = [];
     response = await request.get('/api/books/');
-    Map<String, double> map_year = {};
+    Map<String, double> mapYear = {};
     for (var b in response) {
       if (b != null) {
-        String b_year = Book.fromJson(b).fields.year.toString();
-        map_year[b_year] = (map_year[b_year] ?? 0) + 1;
+        String bYear = Book.fromJson(b).fields.year.toString();
+        mapYear[bYear] = (mapYear[bYear] ?? 0) + 1;
       }
     }
-    return map_year;
+    return mapYear;
   }
 
   Future<Map<String, double>> fetchGenre() async {
@@ -47,14 +47,14 @@ class _LamanAdminPiechartState extends State<LamanAdminPiechart> {
 
     var response = [];
     response = await request.get('/api/books/');
-    Map<String, double> map_genre = {};
+    Map<String, double> mapGenre = {};
     for (var b in response) {
       if (b != null) {
-        String b_genre = Book.fromJson(b).fields.genre;
-        map_genre[b_genre] = (map_genre[b_genre] ?? 0) + 1;
+        String bGenre = Book.fromJson(b).fields.genre;
+        mapGenre[bGenre] = (mapGenre[bGenre] ?? 0) + 1;
       }
     }
-    return map_genre;
+    return mapGenre;
   }
 
   @override
@@ -62,8 +62,8 @@ class _LamanAdminPiechartState extends State<LamanAdminPiechart> {
     return SingleChildScrollView(
         child: Column(
       children: [
-        SizedBox(height: 20),
-        Text(
+        const SizedBox(height: 20),
+        const Text(
           'Tabel Data Author',
           style: TextStyle(
             fontSize: 20.0,
@@ -85,7 +85,7 @@ class _LamanAdminPiechartState extends State<LamanAdminPiechart> {
                 return PieChart(
                   dataMap: snapshot.data,
                   baseChartColor: Colors.grey[300]!,
-                  legendOptions: LegendOptions(
+                  legendOptions: const LegendOptions(
                       legendPosition: LegendPosition.bottom,
                       showLegendsInRow: true,
                       legendTextStyle: TextStyle(fontSize: 8)),
@@ -94,8 +94,8 @@ class _LamanAdminPiechartState extends State<LamanAdminPiechart> {
             }
           },
         ),
-        SizedBox(height: 20),
-        Text(
+        const SizedBox(height: 20),
+        const Text(
           'Tabel Data Year',
           style: TextStyle(
             fontSize: 20.0,
@@ -117,15 +117,14 @@ class _LamanAdminPiechartState extends State<LamanAdminPiechart> {
                 return PieChart(
                   dataMap: snapshot.data,
                   baseChartColor: Colors.grey[300]!,
-                  legendOptions:
-                      LegendOptions(legendTextStyle: TextStyle(fontSize: 12)),
+                  legendOptions: const LegendOptions(legendTextStyle: TextStyle(fontSize: 12)),
                 );
               }
             }
           },
         ),
-        SizedBox(height: 20),
-        Text(
+        const SizedBox(height: 20),
+        const Text(
           'Tabel Data Genre',
           style: TextStyle(
             fontSize: 20.0,
@@ -147,9 +146,8 @@ class _LamanAdminPiechartState extends State<LamanAdminPiechart> {
                 return PieChart(
                   dataMap: snapshot.data,
                   baseChartColor: Colors.grey[300]!,
-                  legendOptions: LegendOptions(
-                      legendPosition: LegendPosition.bottom,
-                      showLegendsInRow: true),
+                  legendOptions: const LegendOptions(
+                      legendPosition: LegendPosition.bottom, showLegendsInRow: true),
                 );
               }
             }
