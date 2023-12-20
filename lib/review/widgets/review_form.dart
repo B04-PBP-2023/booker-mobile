@@ -113,7 +113,7 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: Text('Gagal'),
+                              title: const Text('Gagal'),
                               content: const Text(
                                   'Gagal menyimpan review, buku sudah pernah kamu review.'),
                               actions: [
