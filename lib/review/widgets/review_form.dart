@@ -82,18 +82,18 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                         'rating': _rating.toString(),
                         'review_text': _reviewText,
                       });
-                      await request.post("/reviewbuku/ubah_rating/", {
-                        'book_id': widget.idBuku.toString(),
-                      });
                       if (!mounted) return;
                       if (response['status'] == 'success') {
+                        await request.post("/reviewbuku/ubah_rating/", {
+                          'book_id': widget.idBuku.toString(),
+                        });
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text("Review berhasil disimpan!"),
                         ));
                         Navigator.pop(context);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Terdapat kesalahan, silakan coba lagi."),
+                          content: Text("Buku sudah pernah kamu review."),
                         ));
                       }
                       showDialog(
